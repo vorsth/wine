@@ -1,0 +1,6 @@
+Wine Directory
+
+
+On startup run startup.sh to setup the working environment
+source startup.sh
+
