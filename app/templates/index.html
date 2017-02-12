@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    Hello block Content
+
+    {% for bottle in bottles %}
+        <div class="success">{{bottle.Name}}</div>
+    {% endfor %}
+{% endblock %}
