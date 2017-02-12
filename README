@@ -2,5 +2,8 @@ Wine Directory
 
 
 On startup run startup.sh to setup the working environment
-source startup.sh
+source startup
 
+
+Run app with
+flask run --host=0.0.0.0
