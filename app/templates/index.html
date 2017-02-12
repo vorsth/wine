@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-    Hello block Content
 
-    {% for bottle in bottles %}
-        <div class="success">{{bottle.Name}}</div>
-    {% endfor %}
-{% endblock %}
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title">Total Wine Count</h4>
+        <p class="card-text">There are {{bottleCount}} wines logged</p>
+        <a href="/viewAllWines" class="btn btn-primary">View</a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class=col-4>
+        Three are {{bottleCount}} total wines stored
+    </div>
+    <div class=col-4>
+    </div>
+    <div class=col-4>
+    </div>
+</div>
+
+
+{% endblock content %}
