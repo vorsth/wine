@@ -1,3 +1,3 @@
 from db import db
 
-from WineBottle import WineBottle
+from Wine import Wine

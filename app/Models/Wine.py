@@ -1,9 +1,9 @@
 from app.Models import db
 
-class WineBottle(db.Model):
+class Wine(db.Model):
     __table_args__ = {"schema":"Data"}
-    __tablename__ = 'WineBottles'
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'Wines'
+    WineId = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(100))
     Year = db.Column(db.Integer)
     Type = db.Column(db.String(100))
