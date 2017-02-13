@@ -22,4 +22,4 @@ class Wine(db.Model):
         self.Rating = Rating
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Wine %r>' % self.Name
