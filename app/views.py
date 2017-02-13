@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect
 from forms import NewWineForm, NewUserForm
-from Models import Wine, User, db
+from Models import Wine, User, Image, db
 from sqlalchemy import func
 
 @app.route('/')
@@ -15,7 +15,13 @@ def index():
 
 @app.route('/viewAllWines')
 def viewAllWines():
-    bottles = Wine.query.all()
+    bottles = (
+    Wine.query
+    .join(Image, Image.WineId == Wine.WineId)
+    .add_columns(Wine.Name, Wine.Year, Wine.Type, Wine.Region, Wine.Comments, Wine.Rating, Image.FileName)
+    .filter(Image.ImageTypeId == 1) # Show only the 'Official' image
+    .all()
+)
     return render_template("viewAllWines.html", bottles=bottles)
 
 @app.route('/newWine', methods=['GET', 'POST'])
