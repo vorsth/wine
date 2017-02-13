@@ -9,16 +9,16 @@ class WineBottle(db.Model):
     Type = db.Column(db.String(100))
     Region = db.Column(db.String(100))
     Comments = db.Column(db.String)
-    ImageURL = db.Column(db.String(250))
+    ImageUrl = db.Column(db.String(250))
     Rating = db.Column(db.Integer)
 
-    def __init__(self, Name, Year, Type, Region, Comments, ImageURL, Rating):
+    def __init__(self, Name, Year, Type, Region, Comments, ImageUrl, Rating):
         self.Name = Name
         self.Year = Year
         self.Type = Type
         self.Region = Region
         self.Comments = Comments
-        self.ImageURL = ImageURL
+        self.ImageUrl = ImageUrl
         self.Rating = Rating
 
     def __repr__(self):
