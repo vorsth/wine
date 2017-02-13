@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, flash, redirect
-from forms import NewWineForm
-from Models import Wine, db
+from forms import NewWineForm, NewUserForm
+from Models import Wine, User, db
 from sqlalchemy import func
 
 @app.route('/')
@@ -21,9 +21,7 @@ def viewAllWines():
 @app.route('/newWine', methods=['GET', 'POST'])
 def newWine():
     form = NewWineForm()
-    print("Validating form")
     if form.validate_on_submit():
-        print("Form Validated")
         newWine = Wine(form.Name.data, form.Year.data, form.Type.data, form.Region.data, form.Comments.data, form.ImageUrl.data, form.Rating.data)
         db.session.add(newWine)
         db.session.commit()
@@ -32,5 +30,20 @@ def newWine():
 
         return redirect('/index')
 
-    print("Form not Valid")
     return render_template("newWine.html", form=form)
+
+
+@app.route("/manageUsers", methods=['GET', 'POST'])
+def manageUsers():
+    form = NewUserForm()
+    if form.validate_on_submit():
+        newUser = User(form.FirstName.data,form.LastName.data)
+        db.session.add(newUser)
+        db.session.commit()
+
+        flash("'%s %s' added to database" % (form.FirstName.data, form.LastName.data), 'success');
+
+        return redirect('/manageUsers')
+
+    users = User.query.all()
+    return render_template("Users/manageUsers.html", users=users, form=form)

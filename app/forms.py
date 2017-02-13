@@ -10,3 +10,8 @@ class NewWineForm(FlaskForm):
     Comments = StringField('comments') 
     ImageUrl = StringField('imageurl')
     Rating = IntegerField('rating', validators=[DataRequired()])
+
+
+class NewUserForm(FlaskForm):
+    FirstName = StringField('firstName', validators=[DataRequired()])
+    LastName = StringField('lastName', validators=[DataRequired()])
