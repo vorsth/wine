@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Name</th>
@@ -20,7 +20,7 @@
              <td>{{bottle.Type}}</td>
              <td>{{bottle.Region}}</td>
              <td>{{bottle.Comments}}</td>
-             <td>{{bottle.ImageUrl}}</td>
+             <td><img src="static/images/WineBottles/{{bottle.ImageUrl}}"/ height="125px" alt="Missing Image"></td>
              <td>{{bottle.Rating}}</td>
          </tr>
     </tbody>
