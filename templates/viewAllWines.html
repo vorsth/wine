@@ -7,9 +7,8 @@
             <th>Year</th>
             <th>Type</th>
             <th>Region</th>
-            <th>Comments</th>
             <th>Image</th>
-            <th>Rating</th>
+            <th>Average Rating</th>
         </tr>
     </thead>
 {% for bottle in bottles %}
@@ -19,12 +18,11 @@
              <td>{{bottle.Year}}</td>
              <td>{{bottle.Type}}</td>
              <td>{{bottle.Region}}</td>
-             <td>{{bottle.Comments}}</td>
-             <td><img src="static/images/WineBottles/{{bottle.FileName}}"/ height="125px" alt="Missing Image"></td>
+             <td><img src="images/WineBottles/{{bottle.FileName}}"/ height="125px" alt="Missing Image"></td>
              <td>{{bottle.Rating}}</td>
          </tr>
     </tbody>
 {% endfor %}
 </table>
 
-{% endblock %}
+{% endblock content %}
