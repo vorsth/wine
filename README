@@ -6,4 +6,4 @@ source startup
 
 
 Run app with
-flask run --host=0.0.0.0
+node app.js
