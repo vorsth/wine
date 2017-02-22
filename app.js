@@ -48,6 +48,7 @@ app.get('/newWine', function(req, res){
     res.render('newWine.html');
 });
 
-app.listen(5001, function(){
-    console.log("App listening on port 5001")
+var _port = 5000;
+app.listen(_port, function(){
+    console.log(`App listening on port ${_port}`)
 });
