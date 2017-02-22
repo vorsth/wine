@@ -1,4 +1,5 @@
 *.py[cod]
 *.swp
 
-app/static/images/WineBottles/*
+bin/
+node_modules/
