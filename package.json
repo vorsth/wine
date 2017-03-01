@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "body-parser": "^1.16.1",
     "express": "^4.14.1",
+    "express-form": "^0.12.6",
     "express-http-proxy": "^0.11.0",
     "nunjucks": "^3.0.0",
     "seriate": "^0.9.0"
