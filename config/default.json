@@ -1,0 +1,12 @@
+{
+  "Http": {
+    "Port": 80
+  },
+  "PostgresqlConnection": {
+    "host": "localhost",
+    "port": 5433,
+    "database": "wine",
+    "user": "wine",
+    "password": "1T5qpn00"
+  }
+}

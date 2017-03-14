@@ -3,19 +3,14 @@ var form = require('express-form');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var pgp = require('pg-promise')();
+var config = require('config');
 
 var app = express();
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var connection = {
-  host: 'localhost',
-  port: 5433,
-  database: 'wine',
-  user: 'wine',
-  password: '1T5qpn00'
-};
+var connection = config.get('PostgresqlConnection');
 var db = pgp(connection);
 
 nunjucks.configure('templates', {
@@ -55,6 +50,10 @@ app.get('/viewAllWines', function(req, res) {
 
 app.get('/newWine', function(req, res){
     res.render('Wine/NewWine.html');
+});
+
+app.get('/repo', function(req, res){
+  
 });
 
 app.post('/newWine', 
@@ -104,7 +103,7 @@ function handleError(error){
   return res.send('OTHER ERROR');
 }
 
-var _port = 80;
+var _port = config.get('Http.Port');
 app.listen(_port, "0.0.0.0"
 , function(){
     console.log(`App listening on port ${_port}`)
