@@ -86,7 +86,8 @@ app.post('/newWine',
     }
 );
 
-var _port = 5000;
-app.listen(_port, function(){
+var _port = 80;
+app.listen(_port, "0.0.0.0"
+, function(){
     console.log(`App listening on port ${_port}`)
 });
