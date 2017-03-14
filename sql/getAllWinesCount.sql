@@ -1,3 +1,3 @@
 SELECT
     COUNT(*) AS WineCount
-FROM Data.Wines
+FROM data.wines

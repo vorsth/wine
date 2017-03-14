@@ -1,11 +1,11 @@
 SELECT
-    Wine.Name,
-    Wine.Year,
-    Wine.Type,
-    Wine.Region,
-    Wine.Rating,
-    Image.FileName
+    wine.name,
+    wine.year,
+    wine.type,
+    wine.region,
+    rating.rating,
+    image.filename
 FROM 
-    Data.Wines as Wine
-    LEFT JOIN Data.Images as Image ON Wine.WineId = Image.WineId
-
+    data.wines as wine
+    LEFT JOIN data.images as image ON wine.wine_id = image.wine_id
+    LEFT JOIN data.ratings as rating ON wine.wine_id = rating.wine_id

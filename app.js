@@ -2,50 +2,55 @@ var express = require('express');
 var form = require('express-form');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
-var sql = require('seriate');
+var pgp = require('pg-promise')();
 
 var app = express();
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var config = {
-    'server': 'localhost',
-    'user': 'hans',
-    'password': '1T5qpn00',
-    'database': 'Wine'
+var connection = {
+  host: 'localhost',
+  port: 5433,
+  database: 'wine',
+  user: 'wine',
+  password: '1T5qpn00'
 };
-sql.setDefaultConfig( config );
+var db = pgp(connection);
 
 nunjucks.configure('templates', {
     autoescape: true,
     express: app
 });
 
-
+app.get('/statuscheck', function(req, res){
+  console.log('statuscheck');
+  res.send('SUCCESS');
+});
 
 app.get('/', function(req, res) {
-    sql.execute( {
-            query: sql.fromFile('./sql/getAllWinesCount')
-        }).then( function( results ) {
-            console.log(results);
-            return res.render('index.html', { bottleCount: results[0].WineCount } );
-        }, function( err ){
-            console.log("Something bad happened:", err);
-            res.send("ERROR");
-        });
+  db.one( sql('./sql/getAllWinesCount.sql') )
+    .then( results => {
+      console.log(results);
+      return res.render('index.html', { bottleCount: results.winecount } );
+    })
+    .catch( error => {
+      return handleError(error);
+    });
 });
 
 app.get('/viewAllWines', function(req, res) {
-    sql.execute( {
-            query: sql.fromFile('./sql/getAllWinesDetail.sql')
-        }).then( function( results ){
-            console.log(results);
-            res.render('Wine/ViewAllWines.html', {bottles: results} );
-        }, function( err ){
-            console.log("Something bad happened:", err);
-            res.send("ERROR");
-        });
+  db.many( sql('./sql/getAllWinesDetail.sql') )
+    .then( results => {
+      console.log("SUCCESS");
+      console.log(results);
+      res.render('Wine/ViewAllWines.html', {bottles: results} );
+    })
+    .catch( error => {
+      console.log("ERROR");
+      console.log(error);
+      return handleError(error);
+    });
 });
 
 app.get('/newWine', function(req, res){
@@ -58,33 +63,46 @@ app.post('/newWine',
         form.filter("year").required().isNumeric(),
         form.filter("type").required().trim(),
         form.filter("region").required().trim(),
-        form.filter("rating").required().isNumeric()
+        form.filter("rating").required().isNumeric(),
+        form.filter("comment").trim()
      ),
     function(req, res){
         console.log(req.form);
         if(req.form.isValid){
-            sql.execute( {
-                query: sql.fromFile('./sql/AddWine.sql'),
-                params: {
-                    Name: {type: sql.VARCHAR, val: req.form.name },
-                    Year: {type: sql.INT, val: req.form.year },
-                    Type: {type: sql.VARCHAR, val: req.form.type },
-                    Region: {type: sql.VARCHAR, val: req.form.region },
-                    Comments: {type: sql.VARCHAR, val: req.form.comments },
-                    Rating: { type: sql.TINYINT, val: req.form.rating }
-                }
-            }).then( function( results ){
-                console.log(results);
-                res.render('Wine/ViewAllWines.html', {bottles: results})
-            }, function( err ){
-                console.log("Something bad happened on insert");
-                res.send("ERROR");
+          var params = {
+            name: req.form.name,
+            year: req.form.year,
+            type: req.form.type,
+            region: req.form.region,
+            comment: req.form.comment,
+            rating: req.form.rating
+          };
+          console.log(params);
+          db.none( sql('./sql/AddWine.sql'), params )
+            .then( () => {
+              console.log('INSERTED');
+              return res.redirect('/viewAllWines');
+            })
+            .catch( error => {
+              console.log(error);
+              return handleError(error);
             });
         }else{
             res.send("INVALID ENTRIES, TRY AGAIN");
         }
     }
 );
+
+function sql(file){
+  return pgp.QueryFile(file, {minify: true});
+}
+
+function handleError(error){
+  if(error instanceof pgp.errors.QueryFileError){
+    return res.send('QUERY FILE ERROR');
+  }
+  return res.send('OTHER ERROR');
+}
 
 var _port = 80;
 app.listen(_port, "0.0.0.0"
