@@ -6,4 +6,4 @@ source startup
 
 
 Run app with
-node app.js
+sudo NODE_ENV={prod|[empty]} node app.js
