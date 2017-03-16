@@ -1,9 +1,9 @@
+var bodyParser = require('body-parser');
+var config = require('config');
 var express = require('express');
 var form = require('express-form');
-var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var pgp = require('pg-promise')();
-var config = require('config');
 
 var app = express();
 app.use(express.static('static'));
