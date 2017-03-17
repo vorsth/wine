@@ -2,6 +2,9 @@
   "Http": {
     "Port": 5000
   },
+  "Https": {
+    "Port": 5001
+  },
   "PostgresqlConnection": {
     "host": "localhost",
     "port": 5433,
