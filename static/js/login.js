@@ -4,6 +4,7 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  sendToken(googleUser.getAuthResponse().id_token);
 }
 
 function signOut() {
@@ -11,4 +12,14 @@ function signOut() {
   auth2.signOut().then(function () {
       console.log('User signed out.');
   });
+}
+
+function sendToken(id_token){
+  $.post('/tokensignin', {idtoken: id_token} )
+      .done( function(data) {
+         console.log('Token Verified ' + data);
+      })
+      .fail( function(data) {
+         console.log('Token not verified');
+      });
 }
