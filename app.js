@@ -1,6 +1,5 @@
 var config = require('config');
 var fs = require('fs');
-var GoogleAuth = require('google-auth-library');
 var http = require('http');
 var https = require('https');
 var nunjucks = require('nunjucks');
@@ -10,47 +9,20 @@ var certificate = fs.readFileSync(config.get('sslCert'), 'utf8');
 var credentials = { key: privateKey, cert: certificate };
 var express = require('express');
 
-var auth = new GoogleAuth;
-var client = new auth.OAuth2(config.get('GoogleClientId'), '','');
-
 var app = express();
 app.use(express.static('static'));
 
 var index = require('./modules/index.js');
 var wineViews = require('./modules/WineViews.js');
+var auth = require('./modules/auth.js');
 
 app.use('/', index);
 app.use('/wineViews', wineViews);
+app.use('/auth', auth);
 
 nunjucks.configure('templates', {
     autoescape: true,
     express: app
-});
-
-app.post('/tokensignin', function(req, res){
-  client.verifyIdToken(
-    req.body.idtoken,
-    config.get('GoogleClientId'),
-    function(e, login){
-      var payload = login.getPayload();
-      var userid = payload['sub'];
-      var params = {
-        google_user_id: userid,
-        image_url: payload['picture'],
-        first_name: payload['given_name'],
-        last_name: payload['family_name'],
-        email: payload['email']
-      }
-      db.none( sql('./sql/users/UpsertUserLogin.sql'), params)
-        .then( () => {
-          console.log('USER INSERTED OR UPDATED');
-          return res.send(userid);
-        })
-        .catch( error => {
-          console.log(error);
-          return handleError(error);
-        });
-    });
 });
 
 var _httpPort = config.get('Http.Port');

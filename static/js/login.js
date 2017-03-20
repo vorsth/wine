@@ -15,7 +15,7 @@ function signOut() {
 }
 
 function sendToken(id_token){
-  $.post('/tokensignin', {idtoken: id_token} )
+  $.post('/auth/tokensignin', {idtoken: id_token} )
       .done( function(data) {
          console.log('Token Verified ' + data);
       })
