@@ -42,35 +42,6 @@ module.exports = function(middleware) {
       res.sendStatus(500);
       return;
     });
-
-//    var wine = {
-//      Name: "Angeline Cali Card",
-//      Year: "9999",
-//      Type: "Chardonnay",
-//      Region: "California",
-//      Image: "/images/WineBottles/angeline_cali_chard_14_750.png",
-//      Rating: "5.2"
-//    };
-//
-//    var comments = [
-//      {
-//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
-//        "Name": "Name ONE",
-//        "Comment": "ONE"
-//      },
-//      {
-//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
-//        "Name": "Name two",
-//        "Comment": "two"
-//      },
-//      {
-//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
-//        "Name": "Name three",
-//        "Comment": "three"
-//      },
-//    ];
-
-
   });
 
   router.get('/new', function(req, res){
