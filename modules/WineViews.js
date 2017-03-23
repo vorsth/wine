@@ -22,6 +22,57 @@ module.exports = function(middleware) {
       });
   });
 
+  router.get('/detail/:wineId', function(req, res){
+
+    var wineId = req.params.wineId;
+
+    console.log(wineId);
+
+    var wineDetail = db.one( sql.SqlFromFile('./sql/wines/getWineDetail.sql'), { "wine_id": wineId } );
+    var comments = db.many( sql.SqlFromFile('./sql/wines/getWineComments.sql'), { "wine_id": wineId } );
+
+    Promise.all([wineDetail, comments]).then(function(results){
+      console.log(results);
+      var wineDetail = results[0];
+      var comments = results[1];
+      res.render('Wine/WineDetail.html', {wine: wineDetail, comments: comments});
+    })
+    .catch(function(error){
+      console.log(error);
+      res.sendStatus(500);
+      return;
+    });
+
+//    var wine = {
+//      Name: "Angeline Cali Card",
+//      Year: "9999",
+//      Type: "Chardonnay",
+//      Region: "California",
+//      Image: "/images/WineBottles/angeline_cali_chard_14_750.png",
+//      Rating: "5.2"
+//    };
+//
+//    var comments = [
+//      {
+//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
+//        "Name": "Name ONE",
+//        "Comment": "ONE"
+//      },
+//      {
+//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
+//        "Name": "Name two",
+//        "Comment": "two"
+//      },
+//      {
+//        "Image": "/images/WineBottles/angeline_cali_chard_14_750.png",
+//        "Name": "Name three",
+//        "Comment": "three"
+//      },
+//    ];
+
+
+  });
+
   router.get('/new', function(req, res){
       res.render('Wine/NewWine.html');
   });

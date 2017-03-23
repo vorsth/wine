@@ -1,4 +1,5 @@
 SELECT
+    wine.wine_id,
     wine.name,
     wine.year,
     wine.type,

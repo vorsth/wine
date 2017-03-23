@@ -11,18 +11,18 @@
             <th>Average Rating</th>
         </tr>
     </thead>
-{% for bottle in bottles %}
     <tbody>
-         <tr>
+{% for bottle in bottles %}
+         <tr data-href="/wineViews/detail/{{bottle.wine_id}}">
              <td>{{bottle.name}}</td>
              <td>{{bottle.year}}</td>
              <td>{{bottle.type}}</td>
              <td>{{bottle.region}}</td>
-             <td><img src="images/WineBottles/{{bottle.filename}}"/ height="125px" alt="Missing Image"></td>
+             <td><img src="/images/WineBottles/{{bottle.filename}}" height="125px" alt="Missing Image"></td>
              <td>{{bottle.rating}}</td>
          </tr>
-    </tbody>
 {% endfor %}
+    </tbody>
 </table>
 
 {% endblock content %}

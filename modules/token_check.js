@@ -10,16 +10,21 @@ module.exports = function(options){
       id_token,
       config.get('GoogleClientId'),
       function(e, login){
-        var payload = login.getPayload();
-        var userid = payload['sub'];
-        var user = {
-          google_user_id: userid,
-          image_url: payload['picture'],
-          first_name: payload['given_name'],
-          last_name: payload['family_name'],
-          email: payload['email']
+        if(e){
+          console.log(e);
+          callback(null);
+        } else {
+          var payload = login.getPayload();
+          var userid = payload['sub'];
+          var user = {
+            google_user_id: userid,
+            image_url: payload['picture'],
+            first_name: payload['given_name'],
+            last_name: payload['family_name'],
+            email: payload['email']
+          }
+          callback(user);
         }
-        callback(user);
       });
   };
 
