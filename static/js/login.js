@@ -75,7 +75,7 @@ define(['cookie'], function(cookie){
           onfailure: onSignInFail
         });
       }else{
-        $("#GoogleSignInButton").html("<a id='signoutbutton' href='#'>SIGNOUT</a>");
+        $("#GoogleSignInButton").html("<a class='btn btn-primary' id='signoutbutton' href='#'>SIGNOUT</a>");
         $("#signoutbutton").on('click', onSignOut);
       }
     });
