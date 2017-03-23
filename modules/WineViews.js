@@ -1,20 +1,14 @@
-var bodyParser = require('body-parser');
-var config = require('config');
 var db = require('./db.js');
 var express = require('express');
 var form = require('express-form');
 var sql = require('./sql.js');
 
-module.exports = ( function() {
-  'use strict';
+module.exports = function(middleware) {
 
-  var app = express.Router();
+  var router = express.Router();
+  router.use(middleware);
 
-  app.use(express.static('static'));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: true}));
-
-  app.get('/viewAll', function(req, res) {
+  router.get('/viewAll', function(req, res) {
     db.many( sql.SqlFromFile('./sql/getAllWinesDetail.sql') )
       .then( results => {
         console.log("SUCCESS");
@@ -28,11 +22,11 @@ module.exports = ( function() {
       });
   });
 
-  app.get('/new', function(req, res){
+  router.get('/new', function(req, res){
       res.render('Wine/NewWine.html');
   });
 
-  app.post('/new', 
+  router.post('/new', 
       form(
           form.filter("name").required().trim(),
           form.filter("year").required().isNumeric(),
@@ -67,8 +61,5 @@ module.exports = ( function() {
           }
       }
   );
-
-
-  return app;
-
-})();
+  return router;
+};

@@ -3,6 +3,11 @@ var fs = require('fs');
 var http = require('http');
 var https = require('https');
 var nunjucks = require('nunjucks');
+var token_check = require('./modules/token_check.js');
+
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var privateKey = fs.readFileSync(config.get('sslPrivateKey'), 'utf8');
 var certificate = fs.readFileSync(config.get('sslCert'), 'utf8');
@@ -10,11 +15,26 @@ var credentials = { key: privateKey, cert: certificate };
 var express = require('express');
 
 var app = express();
-app.use(express.static('static'));
 
-var index = require('./modules/index.js');
-var wineViews = require('./modules/WineViews.js');
-var auth = require('./modules/auth.js');
+var middleware = [
+  express.static('static'),
+  cookieParser(),
+  bodyParser.json(),
+  bodyParser.urlencoded( {extended: true} ),
+  session( {
+    secret: 'keyboard cat',
+    saveUninitialized: true,
+    resave: true,
+    cookie: { maxAge: 300000 }
+  }),
+  token_check()
+];
+
+app.use(middleware);
+
+var index = require('./modules/index.js')(middleware);
+var wineViews = require('./modules/WineViews.js')(middleware);
+var auth = require('./modules/auth.js')(middleware);
 
 app.use('/', index);
 app.use('/wineViews', wineViews);
