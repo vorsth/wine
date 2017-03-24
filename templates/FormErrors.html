@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col">
+    <div><h3>There were errors processing the form.  Use the back button to try again</h3></div>
+  </div>
+</div>
+
+<div class="row">
+  <table class="table">
+    <tbody>
+      {% for error in errors %}
+        <tr><td>{{error}}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

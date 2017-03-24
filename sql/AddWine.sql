@@ -8,14 +8,14 @@ BEGIN
   RETURNING wine_id INTO new_wine_id;
 
   INSERT INTO
-    data.comments ( user_id, wine_id, comment )
+    data.comments ( google_user_id, wine_id, comment )
   VALUES
-    (0, new_wine_id, ${comment} );
+    (${user}, new_wine_id, ${comment} );
 
 
   INSERT INTO
-    data.ratings (user_id, wine_id, rating )
+    data.ratings (google_user_id, wine_id, rating )
   VALUES
-    (0, new_wine_id, ${rating} );
+    (${user}, new_wine_id, ${rating} );
 
 END $$

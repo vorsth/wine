@@ -45,7 +45,11 @@ module.exports = function(middleware) {
   });
 
   router.get('/new', function(req, res){
+    if(req.user != null){
       res.render('Wine/NewWine.html');
+    }else{
+      res.render('Forbidden.html', {message: "Add New Wine - Please Login Fist"});
+    }
   });
 
   router.post('/new', 
@@ -58,28 +62,33 @@ module.exports = function(middleware) {
           form.filter("comment").trim()
        ),
       function(req, res){
-          console.log(req.form);
-          if(req.form.isValid){
-            var params = {
-              name: req.form.name,
-              year: req.form.year,
-              type: req.form.type,
-              region: req.form.region,
-              comment: req.form.comment,
-              rating: req.form.rating
-            };
-            console.log(params);
-            db.none( sql.SqlFromFile('./sql/AddWine.sql'), params )
-              .then( () => {
-                console.log('INSERTED');
-                return res.redirect('/wineViews/viewAll');
-              })
-              .catch( error => {
-                console.log(error);
-                return handleError(error);
-              });
+          if(req.user == null){
+            res.render('Forbidden.html', {message: "Add New Wine - Please Login First"});
           }else{
-              res.send("INVALID ENTRIES, TRY AGAIN");
+            if(req.form.isValid){
+              var params = {
+                user: req.user.google_user_id,
+                name: req.form.name,
+                year: req.form.year,
+                type: req.form.type,
+                region: req.form.region,
+                comment: req.form.comment,
+                rating: req.form.rating
+              };
+              console.log(params);
+              db.none( sql.SqlFromFile('./sql/AddWine.sql'), params )
+                .then( () => {
+                  console.log('INSERTED');
+                  return res.redirect('/wineViews/viewAll');
+                })
+                .catch( error => {
+                  console.log(error);
+                  return handleError(error);
+                });
+            }else{
+              console.log(req.form.errors);
+              res.render('FormErrors.html', {errors: req.form.errors});
+            }
           }
       }
   );
