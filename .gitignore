@@ -1,6 +1,6 @@
 *.py[cod]
 *.swp
 
-bin/
-node_modules/
-static/images/*
+backend/bin/
+backend/node_modules/
+backend/static/images/*

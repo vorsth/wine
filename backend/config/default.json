@@ -1,8 +1,8 @@
 {
   "GoogleClientId": "360458871723-f4mqrclsfh0hke6f1vbc0a60snimfkk6.apps.googleusercontent.com",
   "GoogleClientSecret": "ZcKRcENhoH3gAo83aFh7NGMd",
-  "sslPrivateKey": "../sslcert/privkey.pem",
-  "sslCert": "../sslcert/cert.pem",
+  "sslPrivateKey": "../../sslcert/privkey.pem",
+  "sslCert": "../../sslcert/cert.pem",
   "Http": {
     "Port": 5000
   },
