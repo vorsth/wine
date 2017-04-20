@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'
 import { Wine } from '../models/wine';
 import { WineService } from '../services/wine-service';
 import { AuthService } from '../../auth/services/auth-service';
@@ -22,7 +23,7 @@ export class NewWineFormComponent{
 
     model: Wine;    submitted: boolean = false;
   
-    constructor(private wineService: WineService, private authService: AuthService) {
+    constructor(private wineService: WineService, private authService: AuthService, private router: Router) {
         this.model = new Wine(0,"",0,"","","", 0);
         authService.check().subscribe(
             (logInStatus : boolean) => {console.log("WS: success" + logInStatus); this.loggedIn = logInStatus},
@@ -34,8 +35,7 @@ export class NewWineFormComponent{
     onSubmit(){
         this.submitted = true;
         this.wineService.addWine(this.model);
-        console.log("Submitting");
-        console.log(this.model);
+        this.router.navigate(['/wine']);
     }
 
     toString(){

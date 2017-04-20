@@ -79,9 +79,9 @@ module.exports = function(middleware){
           };
           console.log(params);
           db.none(sql.SqlFromFile('AddWine.sql'), params)
-            .then(() => {
+            .then( () => {
               console.log('INSERTED');
-              return res.sendStatus(200);
+              return res.send({status: "INSERTED"});
             })
             .catch(error => {
               console.log(error);
