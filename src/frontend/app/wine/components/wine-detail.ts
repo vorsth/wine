@@ -25,7 +25,7 @@ export class WineDetailComponent implements OnInit {
     }
 
     constructor(private route: ActivatedRoute, private wineService: WineService){
-        this.wine = new Wine(0,"",0,"","","",0);
+        this.wine = new Wine(0,"",0,"","","",0, "");
         this.comments = [];
     }
 }

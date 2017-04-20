@@ -24,7 +24,7 @@ export class NewWineFormComponent{
     model: Wine;    submitted: boolean = false;
   
     constructor(private wineService: WineService, private authService: AuthService, private router: Router) {
-        this.model = new Wine(0,"",0,"","","", 0);
+        this.model = new Wine(0,"",0,"","","", 0, "");
         authService.check().subscribe(
             (logInStatus : boolean) => {console.log("WS: success" + logInStatus); this.loggedIn = logInStatus},
             () => console.log("WS: fail"),
