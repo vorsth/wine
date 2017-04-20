@@ -12,7 +12,7 @@ Add to src/frontend/main.ts
   import {enableProdMode} from '@angular/core';
   enableProdMode();
 $ npm run build
-$ sudo NODE_ENV=prod NODE_CONFIG_DIR=./src/backend/config node ./src/app.js
+$ sudo NODE_ENV=prod NODE_CONFIG_DIR=./src/backend/config node ./src/backend/app.js
 
 
 

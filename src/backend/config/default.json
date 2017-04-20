@@ -9,7 +9,7 @@
   "Https": {
     "Port": 5001
   },
-  "SqlPath": "./backend/sql/",
+  "SqlPath": "./sql/",
   "PostgresqlConnection": {
     "host": "localhost",
     "port": 5433,

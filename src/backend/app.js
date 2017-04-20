@@ -2,8 +2,8 @@ var config = require('config');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var token_check = require('./backend/modules/token_check.js');
-var access_control = require('./backend/modules/access_control.js');
+var token_check = require('./modules/token_check.js');
+var access_control = require('./modules/access_control.js');
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -35,16 +35,16 @@ var middleware = [
 
 app.use(middleware);
 
-var wineViews = require('./backend/modules/WineViews.js')(middleware);
-var auth = require('./backend/modules/auth.js')(middleware);
-var api = require('./backend/modules/api.js')(middleware);
+var wineViews = require('./modules/WineViews.js')(middleware);
+var auth = require('./modules/auth.js')(middleware);
+var api = require('./modules/api.js')(middleware);
 
 app.use('/wineViews', wineViews);
 app.use('/api/auth', auth);
 app.use('/api', api);
 
 app.use('*', function(req, res){
-  return res.sendFile('./frontend/index.html', { root: __dirname });
+  return res.sendFile('../frontend/index.html', { root: __dirname });
 });
 
 var _httpPort = config.get('Http.Port');
