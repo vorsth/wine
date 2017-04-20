@@ -5,7 +5,7 @@ SELECT
     wine.type,
     wine.region,
     ratings.rating,
-    COALESCE(images.filename, 'WineBottles/NO_IMAGE_WINE.svg') as filename
+    COALESCE(images.filename, 'NO_IMAGE_WINE.svg') as filename
 FROM 
     data.wines as wine
     LEFT JOIN data.images as images ON wine.wine_id = images.wine_id
