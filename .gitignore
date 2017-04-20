@@ -1,10 +1,14 @@
 *.py[cod]
 *.swp
+*.map
 
-src/frontend/*.js
+src/frontend/**/*.js
 !src/frontend/systemjs-angular-loader.js
 !src/frontend/systemjs.config.js
 
-backend/bin/
-backend/node_modules/
-backend/static/images/*
+.vscode/*
+images/*
+node_modules/*
+npm-debug.log
+
+
