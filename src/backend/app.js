@@ -20,6 +20,7 @@ var middleware = [
   express.static('./src/frontend'),
   express.static('./src/static'),
   express.static('./node_modules'),
+  express.static('./images'),
   cookieParser(),
   bodyParser.json(),
   bodyParser.urlencoded( {extended: true} ),

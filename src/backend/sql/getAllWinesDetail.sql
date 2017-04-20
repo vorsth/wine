@@ -4,9 +4,9 @@ SELECT
     wine.year,
     wine.type,
     wine.region,
-    rating.rating,
-    COALESCE(image.filename, 'NO_IMAGE_WINE.svg') as filename
+    ratings.rating,
+    COALESCE(images.filename, 'WineBottles/NO_IMAGE_WINE.svg') as filename
 FROM 
     data.wines as wine
-    LEFT JOIN data.images as image ON wine.wine_id = image.wine_id
-    LEFT JOIN data.ratings as rating ON wine.wine_id = rating.wine_id
+    LEFT JOIN data.images as images ON wine.wine_id = images.wine_id
+    LEFT JOIN data.ratings as ratings ON wine.wine_id = ratings.wine_id

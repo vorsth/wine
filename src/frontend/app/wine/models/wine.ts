@@ -8,6 +8,7 @@ export class Wine {
       region: string,
       image: string,
       rating: number,
+      filename: string,
     ){ }
 
 };
