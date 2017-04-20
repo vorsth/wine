@@ -5,5 +5,17 @@ On startup run startup.sh to setup the working environment
 source initialize
 
 
+
+After syncing prod branch:
+$ npm install
+Add to src/frontend/main.ts
+  import {enableProdMode} from '@angular/core';
+  enableProdMode();
+$ npm run build
+$ sudo NODE_ENV=prod NODE_CONFIG_DIR=./src/backend/config node ./src/app.js
+
+
+
 Run app with
 sudo NODE_ENV={prod|[empty]} node app.js
+
