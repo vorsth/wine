@@ -1,6 +1,10 @@
 *.py[cod]
 *.swp
 
+src/frontend/*.js
+!src/frontend/systemjs-angular-loader.js
+!src/frontend/systemjs.config.js
+
 backend/bin/
 backend/node_modules/
 backend/static/images/*

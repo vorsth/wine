@@ -1,0 +1,63 @@
+<span [hidden]="loggedIn">You must login to add a new wine</span>
+<form [hidden]="!loggedIn" (ngSubmit)="onSubmit()" #newWineForm="ngForm">
+    <!-- Name -->
+    <div class="form-group row">
+        <label for="newWineName" class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-10">
+            <input type="text" name="name" id="newWineName" class="form-control" required [(ngModel)]="model.name" />
+        </div>
+    </div>
+
+    <!-- Year -->
+    <div class="form-group row">
+        <label for="newWineYear" class="col-sm-2 col-form-label">Year:</label>
+        <div class="col-sm-10">
+            <input type="number" min="1900" max="2020" name="year" id="newWineYear" class="form-control" required [(ngModel)]="model.year"/>
+        </div>
+    </div>
+
+    <!-- Type -->
+    <div class="form-group row">
+        <label for="newWineType" class="col-sm-2 col-form-label">Type:</label>
+        <div class="col-sm-10">
+            <input type="text" name="type" id="newWineType" class="form-control" required [(ngModel)]="model.type"/>
+        </div>
+    </div>
+
+    <!-- Region -->
+    <div class="form-group row">
+        <label for="newWineRegion" class="col-sm-2 col-form-label">Region:</label>
+        <div class="col-sm-10">
+            <input type="text" name="region" id="newWineRegion" class="form-control" required [(ngModel)]="model.region"/>
+        </div>
+    </div>
+
+    <!-- Comment -->
+    <div class="form-group row">
+        <label for="newWineComment" class="col-sm-2 col-form-label">Comment:</label>
+        <div class="col-sm-10">
+            <textarea name="comment" id="newWineComment" class="form-control" [(ngModel)]="model.comment"></textarea>
+        </div>
+    </div>
+    
+    <!-- Rating --> 
+    <div class="form-group row">
+        <label for="newWineRating" class="col-sm-2 col-form-label">Rating:</label>
+        <div class="col-sm-10">
+            <select name="rating" id="newWineRating" class="form-control" required [(ngModel)]="model.rating">
+                <option *ngFor="let rating of ratings" [value]="rating.value">{{rating.value}} - {{rating.description}}</option>
+            </select>
+        </div>
+    </div>
+
+    <br>
+    <input type="submit" value="Add Wine" class="btn btn-primary" [disabled]="!newWineForm.form.valid" />
+    <button routerLink="/" class="btn btn-danger" >Cancel</button>
+
+    <span>{{model.name}}</span>
+    <span>{{model.year}}</span>
+    <span>{{model.type}}</span>
+    <span>{{model.region}}</span>
+    <span>{{model.comment}}</span>
+    <span>{{model.rating}}</span>
+</form>

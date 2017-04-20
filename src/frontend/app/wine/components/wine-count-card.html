@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-title">Total Wine Counts</h4>
+        <p class="card-text">There are {{bottleCount}} wines logged.</p>
+        <a routerLink="/wine" class="btn btn-primary">View</a>
+        <a [hidden]="!IsLoggedIn" routerLink="/wine/new" class="btn btn-primary">Add A Wine</a>
+    </div>
+</div>

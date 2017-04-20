@@ -1,0 +1,20 @@
+{
+  "GoogleClientId": "360458871723-f4mqrclsfh0hke6f1vbc0a60snimfkk6.apps.googleusercontent.com",
+  "GoogleClientSecret": "ZcKRcENhoH3gAo83aFh7NGMd",
+  "sslPrivateKey": "../sslcert/privkey.pem",
+  "sslCert": "../sslcert/fullchain.pem",
+  "Http": {
+    "Port": 5000
+  },
+  "Https": {
+    "Port": 5001
+  },
+  "SqlPath": "./backend/sql/",
+  "PostgresqlConnection": {
+    "host": "localhost",
+    "port": 5433,
+    "database": "wine",
+    "user": "wine",
+    "password": "1T5qpn00"
+  }
+}

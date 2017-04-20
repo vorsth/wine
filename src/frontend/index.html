@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wine Database</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script src="/lib/tether.min.js"></script>
+    <script src="/lib/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <link rel="stylesheet" href="/css/ie10-viewport-bug-workaround.css"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="/core-js/client/shim.min.js"></script>
+
+    <script src="/zone.js/dist/zone.js"></script>
+    <script src="/systemjs/dist/system.src.js"></script>
+
+    <script src="/systemjs.config.js"></script>
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css"></style>
+
+    <meta name="google-signin-client_id" content="360458871723-f4mqrclsfh0hke6f1vbc0a60snimfkk6.apps.googleusercontent.com">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body style="padding-top:70px" >
+    <wine-app><i class="fa fa-spinner fa-spin" style="font-size:24px"></i>Loading...</wine-app>
+  </body>
+</html>
