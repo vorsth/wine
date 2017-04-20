@@ -36,6 +36,10 @@ const appRoutes : Routes = [
     path: 'wine/:id',
     component: WineDetailComponent
   },
+  {
+    path: '**',
+    component: DashboardComponent
+  }
   //{
   //  path: '**',
   //  component: PageNotFoundComponent

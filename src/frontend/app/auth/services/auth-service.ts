@@ -27,9 +27,11 @@ export class AuthService {
   }
 
   logout(){
-    window.localStorage.setItem('id_token','');
-    this.isLoggedIn = false;
-    this.logIn$.next(this.isLoggedIn);
+    if(this.isLoggedIn){
+      window.localStorage.setItem('id_token','');
+      this.isLoggedIn = false;
+      this.logIn$.next(this.isLoggedIn);
+    }
   }
 
   check() {

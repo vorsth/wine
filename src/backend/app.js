@@ -36,16 +36,13 @@ var middleware = [
 
 app.use(middleware);
 
-var wineViews = require('./modules/WineViews.js')(middleware);
-var auth = require('./modules/auth.js')(middleware);
 var api = require('./modules/api.js')(middleware);
 
-app.use('/wineViews', wineViews);
-app.use('/api/auth', auth);
 app.use('/api', api);
 
 app.use('*', function(req, res){
-  return res.sendFile('../frontend/index.html', { root: __dirname });
+  // Passing __dirname with the path to the parent is necessary to avoid a forbidden error
+  return res.sendFile('./index.html', { root: __dirname + "/../frontend" });
 });
 
 var _httpPort = config.get('Http.Port');
