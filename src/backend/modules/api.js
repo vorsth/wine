@@ -101,7 +101,7 @@ module.exports = function(middleware){
       db.none( sql.SqlFromFile('users/UpsertUserLogin.sql'), user)
         .then( () => {
           console.log('USER INSERTED OR UPDATED');
-          res.send('SUCCESS');
+          res.send(user);
       }).catch( error => {
           console.log(error);
           return sql.HandleError(res, error);

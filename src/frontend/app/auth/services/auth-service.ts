@@ -3,10 +3,15 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Headers, Http } from '@angular/http';
+import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
   public isLoggedIn: boolean = false;
+  private _user : User;
+
+  user$: Subject<User> = new BehaviorSubject<User>(this._user);
+  externalUser : any;
   logIn$: Subject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn);
   externalBS : any;
 
@@ -18,12 +23,17 @@ export class AuthService {
       () => console.log("error"),
       () => console.log("completed")
     );
+
+    this.user$.asObservable();
+    this.externalUser = this.user$;
   }
 
-  login(id_token : any){
+  login(user: User, id_token : string){
     window.localStorage.setItem('id_token', id_token);
     this.isLoggedIn = true;
+    this._user = user;
     this.logIn$.next(this.isLoggedIn);
+    this.user$.next(this._user);
   }
 
   logout(){
@@ -36,6 +46,10 @@ export class AuthService {
 
   check() {
     return this.externalBS.asObservable().startWith(this.isLoggedIn);
+  }
+
+  user() {
+    return this.externalUser.asObservable().startWith(this._user);
   }
   /*
     private GoogleAuth = gapi.auth2.getAuthInstance();

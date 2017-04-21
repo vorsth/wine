@@ -1,7 +1,9 @@
-<div [hidden]="!IsLoggedIn" class="card">
+<div [hidden]="!_isLoggedIn" class="card">
     <div class="card-block">
         <h4 class="card-title">User</h4>
-        <p class="card-text">
+        <p *ngIf="_user" class="card-text">
+            <img src="{{_user.image}}" />
+            <span>{{_user.name}}</span>
         </p>
     </div>
 </div>

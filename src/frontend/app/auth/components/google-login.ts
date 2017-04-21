@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import { CookieService } from '../../shared/services/cookie-service';
 import { UrlService } from '../../shared/services/url-service';
 import { AuthService } from '../services/auth-service';
+import { User } from '../models/user';
 
 export class GoogleLoginSuccess {
     public googleUser: gapi.auth2.GoogleUser;
@@ -12,8 +13,16 @@ export class GoogleLoginSuccess {
                 private authService: AuthService,
                 private urlService: UrlService,
                 private cookieService: CookieService){
+
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        this.sendToken(id_token);
+
+        // These two really should be done only on successful response from sendToken
         this.googleUser = googleUser;
-        this.sendToken(googleUser.getAuthResponse().id_token);
+        var profile = googleUser.getBasicProfile();
+        var user = new User(profile.getName(), profile.getImageUrl(), profile.getEmail());
+        this.authService.login(user, id_token);
     }
 
     private handleError(error: any) : Promise<any> {
@@ -146,7 +155,6 @@ export class GoogleLoginComponent implements AfterViewInit {
                 this.urlService,
                 this.cookieService
             ));
-        this.authService.login(true);
         this.authService.check().subscribe(
             (s : boolean) => { this.zone.run( () => { this.IsLoggedIn = s; } )},
             (f : any) => console.log("Check F: " + f),
