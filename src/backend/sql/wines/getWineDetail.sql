@@ -1,4 +1,5 @@
 SELECT 
+    wine.wine_id,
     wine.name,
     wine.year,
     wine.type,
@@ -10,4 +11,4 @@ FROM
     LEFT JOIN data.images AS images ON images.wine_id = wine.wine_id
     LEFT JOIN data.ratings AS ratings ON ratings.wine_id = wine.wine_id
 WHERE wine.wine_id = ${wine_id} 
-GROUP BY name, year, type, region, filename
+GROUP BY wine.wine_id, name, year, type, region, filename

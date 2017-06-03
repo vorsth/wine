@@ -1,0 +1,8 @@
+<div class="card">
+  <span [hidden]="loggedIn">You must login to add images</span>
+  <div [hidden]="!loggedIn">
+    <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" />
+    <input type="hidden" name="wine_id" [(ngModel)]="wineId" />
+    <input type="button" (click)="uploadFiles()" value="Add Image" class="btn btn-primary" />
+  </div>
+</div>
